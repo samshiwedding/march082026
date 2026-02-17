@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +11,7 @@
             --gold: #D4AF37;
             --dark-gold: #B8860B;
             --maroon: #800000;
-            --overlay: rgba(0, 0, 0, 0.5);
+            --text-color: #3d2b1f;
         }
 
         * {
@@ -24,181 +23,197 @@
 
         body {
             background-color: var(--cream);
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
             font-family: 'Playfair Display', serif;
-            color: #3d2b1f;
+            color: var(--text-color);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* --- Audio Control --- */
-        .music-toggle {
+        /* --- Background Petal Animation --- */
+        #petal-container {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid var(--gold);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-family: 'Cinzel', serif;
-            font-size: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: 0.3s;
-        }
-
-        /* --- Hero Section --- */
-        #hero {
-            height: 100vh;
+            top: 0;
+            left: 0;
             width: 100%;
-            position: relative;
-            background: linear-gradient(var(--overlay), var(--overlay)), url('hero.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            overflow: hidden;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
         }
 
-        .hero-content {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1.5s ease-out;
-            z-index: 10;
-            padding: 0 20px;
-        }
-
-        .hero-content.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .ganesh-icon {
-            width: 60px;
-            margin-bottom: 20px;
-            filter: brightness(0) invert(1);
-        }
-
-        h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(3rem, 10vw, 5rem);
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .hero-sub {
-            font-family: 'Cinzel', serif;
-            letter-spacing: 3px;
-            font-size: 1rem;
-            margin-bottom: 30px;
-        }
-
-        /* --- Countdown --- */
-        .countdown-container {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .timer-circle {
-            width: 70px;
-            height: 70px;
-            border: 1px solid rgba(212, 175, 55, 0.6);
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .timer-circle span {
-            font-family: 'Cinzel', serif;
-            color: var(--gold);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .timer-label {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* --- Rose Petals --- */
         .petal {
             position: absolute;
-            background-color: #ffb7c5;
+            background-color: #ffb7c5; /* Soft pink */
             border-radius: 150% 0 150% 0;
-            opacity: 0.7;
-            pointer-events: none;
-            z-index: 5;
+            opacity: 0.6;
+            animation: fall linear infinite;
         }
 
         @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); }
-            100% { transform: translateY(110vh) rotate(360deg); }
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
 
-        /* --- Event Sections --- */
-        .events-container {
-            padding: 80px 20px;
+        /* --- Decorative Borders & Layout --- */
+        .page-border {
+            position: fixed;
+            top: 10px;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            border: 2px solid var(--gold);
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .corner {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            z-index: 1001;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .top-left { top: 5px; left: 5px; border-top: 5px solid var(--gold); border-left: 5px solid var(--gold); }
+        .top-right { top: 5px; right: 5px; border-top: 5px solid var(--gold); border-right: 5px solid var(--gold); }
+
+        /* --- Header & Mandap Section --- */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: radial-gradient(circle at top, #fff9e6 0%, transparent 70%);
+        }
+
+        .ganesh-motif {
+            width: 80px;
+            margin-bottom: 20px;
+            filter: sepia(1) saturate(5) hue-rotate(-10deg);
+            animation: fadeIn 2s ease-in;
+        }
+
+        .mandap-arch {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            border-top: 8px double var(--gold);
+            border-radius: 50% 50% 0 0;
+            padding-top: 20px;
+            position: relative;
+        }
+
+        .mandap-arch::before {
+            content: '✿ ✿ ✿ ✿ ✿ ✿ ✿';
+            color: var(--gold);
+            font-size: 20px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* --- Typography --- */
+        h1, h2 {
+            font-family: 'Great Vibes', cursive;
+            color: var(--maroon);
+        }
+
+        .hero-title {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--dark-gold);
+            font-family: 'Cinzel', serif;
+        }
+
+        .names {
+            font-size: 3.5rem;
+            margin: 15px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .ampersand {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            display: block;
+            color: var(--gold);
+        }
+
+        /* --- Countdown Section --- */
+        .countdown-container {
+            margin: 40px auto;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            max-width: 500px;
+        }
+
+        .timer-box {
+            background: white;
+            border: 1px solid var(--gold);
+            padding: 15px;
+            min-width: 70px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .timer-box span {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--maroon);
+            font-family: 'Cinzel', serif;
+        }
+
+        .timer-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--dark-gold);
+        }
+
+        /* --- Event Cards --- */
+        .events-section {
+            padding: 20px;
             max-width: 800px;
             margin: 0 auto;
-            background-image: radial-gradient(#f3e5ab 0.5px, transparent 0.5px);
-            background-size: 20px 20px;
         }
 
         .event-card {
             background: white;
             border: 2px solid var(--gold);
-            margin-bottom: 50px;
-            padding: 40px 20px;
+            margin-bottom: 30px;
+            padding: 30px;
             text-align: center;
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-radius: 4px;
+            transition: transform 0.3s ease;
             opacity: 0;
-            transform: translateY(40px);
-            transition: 1s all ease;
+            transform: translateY(30px);
         }
 
-        .event-card.reveal {
+        .event-card.visible {
             opacity: 1;
             transform: translateY(0);
+            transition: all 0.8s ease-out;
         }
 
-        .event-card::before {
+        .event-card::after {
             content: "";
             position: absolute;
-            top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
             pointer-events: none;
         }
 
-        .event-card h2 {
-            font-family: 'Great Vibes', cursive;
-            color: var(--maroon);
-            font-size: 2.5rem;
+        .event-icon {
+            font-size: 2rem;
             margin-bottom: 10px;
+            display: block;
         }
 
-        .divider {
-            color: var(--gold);
-            margin: 15px 0;
-            font-size: 1.5rem;
-        }
-
-        .location-btn {
+        .btn-map {
             display: inline-block;
-            margin-top: 25px;
+            margin-top: 20px;
             padding: 12px 30px;
             background: linear-gradient(135deg, var(--gold), var(--dark-gold));
             color: white;
@@ -206,186 +221,234 @@
             border-radius: 25px;
             font-family: 'Cinzel', serif;
             font-size: 0.8rem;
-            transition: 0.3s;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3);
+            box-shadow: 0 4px 10px rgba(184, 134, 11, 0.3);
         }
 
-        .location-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(184, 134, 11, 0.5);
+        .btn-map:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(184, 134, 11, 0.5);
+        }
+
+        /* --- Audio Toggle --- */
+        .audio-control {
+            fixed: bottom 30px right 30px;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1002;
+            background: white;
+            border: 1px solid var(--gold);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         /* --- Footer --- */
         footer {
             text-align: center;
-            padding: 60px 20px;
-            background: #fdfaf0;
-            border-top: 1px solid var(--gold);
+            padding: 60px 20px 100px;
+            background: linear-gradient(to bottom, transparent, #fff9e6);
         }
 
-        .blessing {
+        .blessing-text {
             font-style: italic;
-            max-width: 600px;
-            margin: 0 auto;
-            color: #555;
-            line-height: 1.8;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
         }
 
-        /* --- Responsive --- */
+        .floral-divider {
+            color: var(--gold);
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Mobile Adjustments */
         @media (max-width: 600px) {
+            .names { font-size: 2.5rem; }
             .countdown-container { gap: 8px; }
-            .timer-circle { width: 60px; height: 60px; }
-            .timer-circle span { font-size: 1rem; }
+            .timer-box { min-width: 60px; padding: 10px; }
+            .timer-box span { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
 
-    <audio id="bgm" loop>
-        <source src="bgm.mp3" type="audio/mpeg">
+    <div class="page-border"></div>
+    <div class="corner top-left"></div>
+    <div class="corner top-right"></div>
+
+    <div id="petal-container"></div>
+
+    <audio id="templeBell" loop>
+        <source src="https://www.soundjay.com/nature/sounds/wind-chime-1.mp3" type="audio/mpeg">
     </audio>
 
-    <button class="music-toggle" onclick="toggleMusic()">
-        <span id="music-icon">🔊</span> Music On/Off
-    </button>
+    <div class="audio-control" onclick="toggleAudio()" title="Play Traditional Music">
+        <span id="audioIcon">🔔</span>
+    </div>
 
-    <section id="hero">
-        <div class="hero-content" id="heroContent">
-            <img src="https://cdn-icons-png.flaticon.com/512/2301/2301135.png" class="ganesh-icon" alt="Ganesha">
-            <p class="hero-sub">💐 Wedding Ceremony</p>
-            <h1>Sai Samyuktha <br> & <br> Vamshi Krishna</h1>
-            <p class="hero-sub">8th March 2026 | Karimnagar</p>
+    <header>
+        <img src="https://cdn-icons-png.flaticon.com/512/2301/2301135.png" alt="Ganesha" class="ganesh-motif">
+        <div class="mandap-arch">
+            <p class="hero-title">Wedding Ceremony</p>
+            <h1 class="names">
+                Sai Samyuktha 
+                <span class="ampersand">weds</span> 
+                Vamshi Krishna
+            </h1>
+            <p style="font-family: 'Cinzel'; letter-spacing: 2px;">8th March 2026 • Karimnagar</p>
+        </div>
+    </header>
 
-            <div class="countdown-container">
-                <div class="timer-circle"><span id="days">00</span><div class="timer-label">Days</div></div>
-                <div class="timer-circle"><span id="hours">00</span><div class="timer-label">Hrs</div></div>
-                <div class="timer-circle"><span id="minutes">00</span><div class="timer-label">Min</div></div>
-                <div class="timer-circle"><span id="seconds">00</span><div class="timer-label">Sec</div></div>
+    <section class="countdown-section">
+        <div class="countdown-container" id="timer">
+            <div class="timer-box">
+                <span id="days">00</span>
+                <div class="timer-label">Days</div>
+            </div>
+            <div class="timer-box">
+                <span id="hours">00</span>
+                <div class="timer-label">Hrs</div>
+            </div>
+            <div class="timer-box">
+                <span id="minutes">00</span>
+                <div class="timer-label">Min</div>
+            </div>
+            <div class="timer-box">
+                <span id="seconds">00</span>
+                <div class="timer-label">Sec</div>
             </div>
         </div>
     </section>
 
-    <div class="events-container">
+    <div class="events-section">
         <div class="event-card">
-            <div class="divider">❦</div>
+            <span class="event-icon">🌼</span>
             <h2>Haldi Ceremony</h2>
-            <p>Saturday, 7th March 2026</p>
-            <div class="divider">❀</div>
-            <a href="https://maps.app.goo.gl/iYfaqjJcwjwF8wHBA?g_st=ic" target="_blank" class="location-btn">VIEW LOCATION</a>
+            <p>7th March 2026</p>
+            <p>Morning 10:00 AM onwards</p>
+            <a href="https://maps.app.goo.gl/iYfaqjJcwjwF8wHBA?g_st=ic" class="btn-map" target="_blank">VIEW LOCATION</a>
         </div>
 
         <div class="event-card">
-            <div class="divider">❦</div>
+            <span class="event-icon">💐</span>
             <h2>Wedding Ceremony</h2>
-            <p>Sunday, 8th March 2026</p>
-            <p>Muhurtham: 9:00 AM IST</p>
+            <p>8th March 2026</p>
+            <p>Muhurtham: 9:00 AM</p>
             <p>Venue: Karimnagar</p>
-            <div class="divider">❀</div>
-            <a href="https://maps.app.goo.gl/TUs1AmYJoai5cXpu8" target="_blank" class="location-btn">VIEW LOCATION</a>
+            <a href="https://maps.app.goo.gl/TUs1AmYJoai5cXpu8" class="btn-map" target="_blank">VIEW LOCATION</a>
         </div>
 
         <div class="event-card">
-            <div class="divider">❦</div>
+            <span class="event-icon">🎉</span>
             <h2>Reception</h2>
-            <p>Monday, 9th March 2026</p>
-            <p>Time: 5:00 PM onwards</p>
+            <p>9th March 2026</p>
+            <p>Evening 5:00 PM</p>
             <p>Venue: Pothana Colony, Godavarikhani</p>
-            <div class="divider">❀</div>
-            <a href="https://maps.app.goo.gl/PJV4nuFHHRPsmwrP6" target="_blank" class="location-btn">VIEW LOCATION</a>
+            <a href="https://maps.app.goo.gl/PJV4nuFHHRPsmwrP6" class="btn-map" target="_blank">VIEW LOCATION</a>
         </div>
     </div>
 
     <footer>
-        <div class="divider">❦ ❀ ❦</div>
-        <p class="blessing">
-            “With the blessings of Lord Ganesha and our beloved families, we request the honor of your presence to celebrate the beginning of our new journey together.”
+        <p class="blessing-text">
+            “With the blessings of Lord Ganesha and our beloved families, we request the honor of your presence.”
         </p>
+        <div class="floral-divider">❦ ❀ ❦</div>
+        <p style="margin-top:20px; font-size: 0.8rem; color: var(--dark-gold); letter-spacing: 1px;">SAMYUKTHA & VAMSHI</p>
     </footer>
 
     <script>
-        // --- Initialization ---
-        window.onload = () => {
-            // Delay for hero text animation
-            setTimeout(() => {
-                document.getElementById('heroContent').classList.add('show');
-            }, 1500);
+        // --- Countdown Timer Logic ---
+        const targetDate = new Date("March 8, 2026 09:00:00").getTime();
 
-            // Start Rose Petals
-            startPetals();
-            
-            // Auto-play music fallback
-            const playPromise = document.getElementById('bgm').play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Autoplay blocked. Waiting for user interaction.");
-                });
-            }
-        };
-
-        // --- Music Toggle ---
-        let playing = false;
-        function toggleMusic() {
-            const audio = document.getElementById('bgm');
-            const icon = document.getElementById('music-icon');
-            if (audio.paused) {
-                audio.play();
-                icon.innerText = "🔊";
-            } else {
-                audio.pause();
-                icon.innerText = "🔇";
-            }
-        }
-
-        // --- Rose Petals Engine ---
-        function startPetals() {
-            const container = document.getElementById('hero');
-            for (let i = 0; i < 25; i++) {
-                createPetal(container);
-            }
-        }
-
-        function createPetal(parent) {
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            const size = Math.random() * 15 + 10;
-            petal.style.width = size + 'px';
-            petal.style.height = size + 'px';
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.animation = `fall ${Math.random() * 5 + 5}s linear infinite`;
-            petal.style.animationDelay = Math.random() * 5 + 's';
-            parent.appendChild(petal);
-        }
-
-        // --- Countdown Logic ---
-        const weddingDate = new Date("March 8, 2026 09:00:00").getTime();
-        
-        setInterval(() => {
+        function updateCountdown() {
             const now = new Date().getTime();
-            const diff = weddingDate - now;
+            const difference = targetDate - now;
 
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
 
             document.getElementById("days").innerText = d < 10 ? "0" + d : d;
             document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
             document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
             document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
-        }, 1000);
+        }
+
+        setInterval(updateCountdown, 1000);
+
+        // --- Petal Animation ---
+        function createPetals() {
+            const container = document.getElementById('petal-container');
+            const petalCount = 15;
+
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.width = Math.random() * 15 + 10 + 'px';
+                petal.style.height = petal.style.width;
+                petal.style.animationDuration = Math.random() * 3 + 5 + 's';
+                petal.style.delay = Math.random() * 5 + 's';
+                container.appendChild(petal);
+            }
+        }
+        createPetals();
 
         // --- Scroll Reveal ---
-        window.addEventListener('scroll', () => {
-            const cards = document.querySelectorAll('.event-card');
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                if (cardTop < window.innerHeight - 100) {
-                    card.classList.add('reveal');
+        const observerOptions = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
             });
+        }, observerOptions);
+
+        document.querySelectorAll('.event-card').forEach(card => {
+            observer.observe(card);
         });
+
+        // --- Audio Control ---
+        let isPlaying = false;
+        const audio = document.getElementById("templeBell");
+        const icon = document.getElementById("audioIcon");
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                icon.innerText = "🔔";
+            } else {
+                audio.play();
+                icon.innerText = "🔕";
+            }
+            isPlaying = !isPlaying;
+        }
     </script>
 </body>
 </html>
